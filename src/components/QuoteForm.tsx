@@ -151,9 +151,16 @@ export default function QuoteForm() {
         }),
       });
 
-      const json = await res.json();
-      if (!res.ok) {
-        throw new Error(json.error || 'Unable to deliver your message. Please call or WhatsApp us.');
+      const contentType = res.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        const json = await res.json();
+        if (!res.ok) {
+          throw new Error(json.error || 'Unable to deliver your message. Please call or WhatsApp us.');
+        }
+      } else {
+        if (!res.ok) {
+          throw new Error('Server connection error. Please call +91 99099 22785 or try again later.');
+        }
       }
 
       setState('success');
