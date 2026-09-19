@@ -24,6 +24,8 @@ export interface ProductCategory {
   tone: string;
   tagline: string;
   description: string;
+  image: string;
+  alt: string;
   products: Product[];
 }
 
@@ -35,6 +37,8 @@ export const categories: ProductCategory[] = [
     tone: 'gold',
     tagline: 'Secure every carton, every time',
     description: 'Semi-automatic and fully automatic strapping solutions for all carton sizes, high volume speeds, and compression needs.',
+    image: '/images/products/auto-strapping.webp',
+    alt: 'High-speed automatic box strapping machine',
     products: [
       {
         id: 'semi-auto-strapping',
@@ -85,6 +89,8 @@ export const categories: ProductCategory[] = [
     tone: 'blue',
     tagline: 'Stable pallets, protected loads',
     description: 'Heavy-duty automatic and semi-automatic pallet stretch wrappers for factory dispatch, warehouse, and export containers.',
+    image: '/images/products/fully-auto-pallet.webp',
+    alt: 'Fully automatic pallet stretch wrapping machine',
     products: [
       {
         id: 'fully-auto-pallet',
@@ -119,6 +125,8 @@ export const categories: ProductCategory[] = [
     tone: 'green',
     tagline: 'Consistent top & bottom sealing',
     description: 'Automatic and random carton sealers for uniform tape application on all carton sizes.',
+    image: '/images/products/auto-random-carton.webp',
+    alt: 'Automatic random carton sealer with flap closure',
     products: [
       {
         id: 'top-bottom-carton',
@@ -145,6 +153,8 @@ export const categories: ProductCategory[] = [
     tone: 'orange',
     tagline: 'Clean finish for every pack',
     description: 'Industrial heat shrink tunnels, L-sealers, and automatic web sleeve sealers for retail bundles and protective packaging.',
+    image: '/images/products/web-sealer-shrink.webp',
+    alt: 'Web sealer with continuous heat shrink tunnel',
     products: [
       {
         id: 'shrink-tunnel',
@@ -187,6 +197,8 @@ export const categories: ProductCategory[] = [
     tone: 'navy',
     tagline: 'Built to your floor, your pace',
     description: 'Fully customized conveyor systems — free roller and motorized belt conveyors — fabricated to your exact floor dimensions.',
+    image: '/images/products/belt-conveyor.webp',
+    alt: 'Motorized industrial belt conveyor system',
     products: [
       {
         id: 'free-roller-conveyor',
@@ -213,6 +225,8 @@ export const categories: ProductCategory[] = [
     tone: 'teal',
     tagline: 'The right supplies, always in stock',
     description: 'High-tensile virgin polypropylene (PP) strapping rolls and consumables engineered for smooth machine feeding.',
+    image: '/images/products/strapping-roll.webp',
+    alt: 'High-tensile virgin PP strapping rolls',
     products: [
       {
         id: 'strapping-roll',

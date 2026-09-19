@@ -194,7 +194,7 @@ export default function Home() {
           </div>
 
           <div className="product-grid">
-            {categories.map(({ id, name, products, icon: Icon, tone }) => (
+            {categories.map(({ id, name, image, alt, products, icon: Icon, tone }) => (
               <Link className={`product-card ${tone}`} to={`/products?category=${id}`} key={id}>
                 <div className="product-card-top">
                   <div className="product-icon">
@@ -206,8 +206,8 @@ export default function Home() {
                 </div>
                 <div className="product-preview-thumb">
                   <img
-                    src={products[0].image}
-                    alt={products[0].alt}
+                    src={image}
+                    alt={alt}
                     width="260"
                     height="190"
                     loading="lazy"
@@ -215,7 +215,7 @@ export default function Home() {
                 </div>
                 <div className="product-card-info">
                   <h3>{name}</h3>
-                  <p>{products[0].name}</p>
+                  <p>{products.length} packaging solutions</p>
                 </div>
                 <span className="card-arrow-wrap" aria-hidden="true">
                   <ArrowRight size={16} />
