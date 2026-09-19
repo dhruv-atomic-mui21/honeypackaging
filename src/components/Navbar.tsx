@@ -70,6 +70,16 @@ export default function Navbar() {
                 {label}
               </NavLink>
             ))}
+            
+            <div className="mobile-contact-links">
+              <a href="tel:+919909922785" className="mobile-contact-link">
+                <Phone size={15} /> +91 99099 22785
+              </a>
+              <a href="mailto:honeypackaging2007@gmail.com" className="mobile-contact-link">
+                <Mail size={15} /> honeypackaging2007@gmail.com
+              </a>
+            </div>
+
             <Link className="nav-cta" to="/contact" onClick={close}>
               <span>Get a Quote</span>
               <ArrowRight size={15} />
