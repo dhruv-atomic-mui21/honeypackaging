@@ -659,7 +659,8 @@ h1 em, h2 em {
   min-height: 110px;
   align-items: center;
   gap: 20px;
-  padding: 16px 0;
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
 
 .trust-intro {
@@ -733,7 +734,8 @@ h1 em, h2 em {
   .trust-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 18px;
-    padding: 24px 0;
+    padding-top: 24px;
+    padding-bottom: 24px;
   }
   .trust-intro {
     grid-column: span 2;
