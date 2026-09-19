@@ -122,7 +122,17 @@ export default function Footer() {
       </div>
 
       <div className="container footer-bottom">
-        <span>© {new Date().getFullYear()} Honey Packaging. All rights reserved.</span>
+        <span>
+          © {new Date().getFullYear()} Honey Packaging. All rights reserved. Maintained by{' '}
+          <a
+            href="https://www.satyaneev.me"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: 'var(--gold)', textDecoration: 'none' }}
+          >
+            satyaneev
+          </a>
+        </span>
         <span className="footer-gst">GSTIN: 24BIVPP5437N1ZD</span>
         <div className="footer-bottom-links">
           <Link to="/privacy-policy">Privacy</Link>
