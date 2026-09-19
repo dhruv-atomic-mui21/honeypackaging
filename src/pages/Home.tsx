@@ -16,8 +16,7 @@ import {
 } from 'lucide-react';
 import { categories } from '@/data/products';
 
-const heroImage =
-  'https://images.pexels.com/photos/18631424/pexels-photo-18631424.jpeg?auto=compress&cs=tinysrgb&h=650&w=940';
+const heroImage = '/images/hero-new-machine.jpg';
 
 const benefits = [
   {
