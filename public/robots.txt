@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://honeypackaging.in/sitemap.xml
+Sitemap: https://honeypackaging.co.in/sitemap.xml
+Agentmap: https://honeypackaging.co.in/ai-catalog.json

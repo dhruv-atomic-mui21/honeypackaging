@@ -27,15 +27,15 @@ const tasks = [
     out: `${imgRoot}/hero-new-machine.webp`,
     width: 940,
     height: 650,
-    quality: 82,
+    quality: 72,          // more aggressive: saves ~20KB more
   },
 
   // ── Badges ───────────────────────────────────────────────────────────────
   {
     src: `${imgRoot}/badges/make-in-india.webp`,
     out: `${imgRoot}/badges/make-in-india.webp`,
-    width: 168,
-    quality: 80,
+    width: 156,           // 2× display of 78px
+    quality: 75,
   },
 
   // ── Logo ─────────────────────────────────────────────────────────────────
@@ -46,7 +46,7 @@ const tasks = [
     quality: 85,
   },
 
-  // ── Product cards (800×600 → 520×380) ────────────────────────────────────
+  // ── Product cards (displayed at 176×132 → 2× = 352×264) ──────────────────
   ...[
     'fully-auto-pallet',
     'web-sealer-shrink',
@@ -68,8 +68,8 @@ const tasks = [
   ].map((name) => ({
     src: `${imgRoot}/products/${name}.webp`,
     out: `${imgRoot}/products/${name}.webp`,
-    width: 520,
-    quality: 80,
+    width: 352,           // 2× actual display of 176px
+    quality: 78,
   })),
 ];
 

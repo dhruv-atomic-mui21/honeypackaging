@@ -39,6 +39,15 @@
       ]
     },
     {
+      "source": "/fonts/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
       "source": "/images/(.*)",
       "headers": [
         {
@@ -46,9 +55,39 @@
           "value": "public, max-age=86400, stale-while-revalidate=604800"
         }
       ]
+    },
+    {
+      "source": "/(ai-catalog\\.json|llms\\.txt|\\.well-known/.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "source": "/llms.txt",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        }
+      ]
     }
   ],
   "rewrites": [
+    {
+      "source": "/.well-known/(.*)",
+      "destination": "/.well-known/$1"
+    },
     {
       "source": "/llms.txt",
       "destination": "/llms.txt"

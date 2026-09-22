@@ -97,8 +97,8 @@ export default function Home() {
               <img
                 src="/images/hero-new-machine.webp"
                 alt="Automated packaging conveyor line in a modern manufacturing facility"
-                width="470"
-                height="325"
+                width="500"
+                height="440"
                 loading="eager"
                 fetchPriority="high"
               />
@@ -209,8 +209,8 @@ export default function Home() {
                   <img
                     src={image}
                     alt={alt}
-                    width="260"
-                    height="190"
+                    width="176"
+                    height="132"
                     loading="lazy"
                   />
                 </div>

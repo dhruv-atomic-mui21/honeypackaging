@@ -5,8 +5,9 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CookieConsent from '@/components/CookieConsent';
 
-// Lazy loaded routes for optimal bundle splitting and fast initial page load speed
-const Home = lazy(() => import('@/pages/Home'));
+import Home from '@/pages/Home';
+
+// Lazy loaded secondary routes for optimal bundle splitting
 const Products = lazy(() => import('@/pages/Products'));
 const Solutions = lazy(() => import('@/pages/Solutions'));
 const About = lazy(() => import('@/pages/About'));
