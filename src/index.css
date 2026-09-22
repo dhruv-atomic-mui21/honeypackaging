@@ -173,7 +173,7 @@ button, input, select, textarea {
 .brand-text-wrap small {
   font: 600 8px 'DM Mono', monospace;
   letter-spacing: .12em;
-  color: var(--gold);
+  color: var(--navy);
   text-transform: uppercase;
   margin-top: 2px;
 }
@@ -909,7 +909,7 @@ h2 {
 
 .product-card-info p {
   margin: 0;
-  color: #788388;
+  color: #5c6b70;
   font-size: 11px;
 }
 
@@ -1182,6 +1182,12 @@ h2 {
   color: white;
   background: var(--navy);
   overflow: hidden;
+}
+
+/* Override: blue em is unreadable on navy bg (~1.4:1). Gold gives ~7:1. */
+.dark-section h1 em,
+.dark-section h2 em {
+  color: var(--gold);
 }
 
 .about-grid {
@@ -2695,7 +2701,7 @@ textarea {
 
 .gst-state {
   font: 10px 'DM Mono';
-  color: #718087;
+  color: #94a5ab;
 }
 
 .mii-footer-badge {
@@ -2712,10 +2718,12 @@ textarea {
 }
 
 .mii-footer-logo {
-  max-width: 60px;
-  height: auto;
+  width: 60px;
+  height: 26px;
   object-fit: contain;
   filter: brightness(1.15);
+  /* Explicit dimensions prevent layout reflow (CLS fix) */
+  aspect-ratio: 467 / 213;
 }
 
 .mii-footer-badge b {
@@ -2735,13 +2743,16 @@ textarea {
   gap: 6px;
   font-size: 11px;
   color: #a9b5ba;
+  /* Touch target fix: min 44px per WCAG 2.5.5 */
+  min-height: 44px;
+  padding: 4px 0;
 }
 
 .footer-policy-links {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 2px;
 }
 
 .footer-policy-link {
@@ -2751,6 +2762,9 @@ textarea {
   font-size: 11px;
   color: #a9b5ba;
   transition: color .2s;
+  /* Touch target fix: min 44px per WCAG 2.5.5 */
+  min-height: 44px;
+  padding: 4px 0;
 }
 
 .footer-policy-link:hover {
@@ -2763,7 +2777,7 @@ textarea {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #718087;
+  color: #94a5ab;
   font: 10px 'DM Mono';
   padding: 12px 0;
   gap: 12px;

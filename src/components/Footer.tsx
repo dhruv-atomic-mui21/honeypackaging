@@ -128,7 +128,7 @@ export default function Footer() {
             href="https://www.satyaneev.me"
             target="_blank"
             rel="noopener noreferrer"
-            style={{ color: 'var(--gold)', textDecoration: 'none' }}
+            style={{ color: 'var(--gold)', textDecoration: 'underline' }}
           >
             satyaneev
           </a>

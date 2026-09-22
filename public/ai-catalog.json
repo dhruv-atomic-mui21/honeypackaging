@@ -1,0 +1,42 @@
+{
+  "$schema": "https://agenticresourcediscovery.org/schema/v1/catalog.json",
+  "name": "Honey Packaging",
+  "description": "Industrial packaging machinery supplier and manufacturer in Ahmedabad, Gujarat, India. Strapping machines, pallet stretch wrappers, carton sealers, shrink tunnels, and custom conveyors.",
+  "url": "https://honeypackaging.co.in",
+  "contact": {
+    "email": "honeypackaging2007@gmail.com",
+    "phone": "+919909922785"
+  },
+  "resources": [
+    {
+      "type": "webpage",
+      "name": "Home",
+      "url": "https://honeypackaging.co.in/",
+      "description": "Company overview, product categories, and key credentials."
+    },
+    {
+      "type": "webpage",
+      "name": "Packaging Machines",
+      "url": "https://honeypackaging.co.in/products",
+      "description": "Full product catalogue: strapping machines, pallet wrappers, carton sealers, shrink packaging, conveyors."
+    },
+    {
+      "type": "webpage",
+      "name": "Packing Solutions",
+      "url": "https://honeypackaging.co.in/solutions",
+      "description": "Integrated end-of-line dispatch flow and synchronized packing line design."
+    },
+    {
+      "type": "webpage",
+      "name": "About Us",
+      "url": "https://honeypackaging.co.in/about",
+      "description": "Company history since 2007, founder Jasapal Puvar, and engineering team."
+    },
+    {
+      "type": "webpage",
+      "name": "Contact",
+      "url": "https://honeypackaging.co.in/contact",
+      "description": "Get a custom quote or contact the engineering team directly."
+    }
+  ]
+}

@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import { categories } from '@/data/products';
 
-const heroImage = '/images/hero-new-machine.jpg';
+
 
 const benefits = [
   {
@@ -95,11 +95,12 @@ export default function Home() {
           <div className="hero-visual">
             <div className="image-frame">
               <img
-                src={heroImage}
+                src="/images/hero-new-machine.webp"
                 alt="Automated packaging conveyor line in a modern manufacturing facility"
                 width="470"
                 height="325"
                 loading="eager"
+                fetchPriority="high"
               />
             </div>
             <div className="visual-stamp">
@@ -310,7 +311,7 @@ export default function Home() {
                 <i /> LIVE DISPATCH
               </span>
             </div>
-            <div className="flow-visual" aria-label="Interactive packaging flow animation">
+            <div className="flow-visual" role="img" aria-label="Interactive packaging flow animation">
               <div className="flow-machine machine-one">
                 <div className="machine-screen" />
                 <div className="machine-leg" />
