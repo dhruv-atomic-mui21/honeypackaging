@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '@/components/SEO';
 import { ImageIcon, ArrowRight, X, MessageCircle, ZoomIn } from 'lucide-react';
@@ -93,6 +93,27 @@ export default function Gallery() {
   const [selectedCat, setSelectedCat] = useState('All');
   const [activeModal, setActiveModal] = useState<GalleryItem | null>(null);
 
+  // Close modal on Escape key & lock body scroll
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && activeModal) {
+        setActiveModal(null);
+      }
+    };
+
+    if (activeModal) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [activeModal]);
+
   const filteredItems =
     selectedCat === 'All'
       ? galleryItems
@@ -101,7 +122,7 @@ export default function Gallery() {
   return (
     <main className="page-main">
       <SEO
-        title="Plant Installations &amp; Machine Gallery | Honey Packaging"
+        title="Plant Installations & Machine Gallery | Honey Packaging"
         description="View real photographs and video stills of packaging machine installations, automatic strapping lines, pallet wrappers, and custom conveyors across Gujarat factories."
         path="/gallery"
       />
@@ -140,9 +161,18 @@ export default function Gallery() {
           <div className="gallery-grid">
             {filteredItems.map((item) => (
               <article
-                className="gallery-item cursor-pointer"
+                className="gallery-item"
                 key={item.id}
                 onClick={() => setActiveModal(item)}
+                tabIndex={0}
+                role="button"
+                aria-label={`View photo of ${item.title}`}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setActiveModal(item);
+                  }
+                }}
               >
                 <img
                   src={item.src}

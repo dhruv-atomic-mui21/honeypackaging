@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import SEO from '@/components/SEO';
-import { ArrowRight, Phone, MessageCircle } from 'lucide-react';
+import { ArrowRight, MessageCircle } from 'lucide-react';
 
 const industries = [
   {

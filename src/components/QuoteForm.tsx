@@ -1,4 +1,5 @@
 import { FormEvent, useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Check, Loader2, Quote, Send, AlertCircle } from 'lucide-react';
 import { categories } from '@/data/products';
 
@@ -33,6 +34,9 @@ const empty: FormData = {
 };
 
 export default function QuoteForm() {
+  const [searchParams] = useSearchParams();
+  const needParam = searchParams.get('need');
+
   const [state, setState] = useState<FormState>('idle');
   const [errMsg, setErrMsg] = useState('');
   const [data, setData] = useState<FormData>(empty);
@@ -42,6 +46,12 @@ export default function QuoteForm() {
   useEffect(() => {
     setFormLoadTime(Date.now());
   }, []);
+
+  useEffect(() => {
+    if (needParam) {
+      setData((prev) => ({ ...prev, need: needParam }));
+    }
+  }, [needParam]);
 
   const change = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -199,6 +209,14 @@ export default function QuoteForm() {
     );
   }
 
+  // Pre-configured default options
+  const defaultOptionValues = [
+    ...categories.map((c) => c.name),
+    'Complete Packaging Line Solution',
+    'Custom Conveyor System',
+    'Not sure yet — need engineer recommendation',
+  ];
+
   return (
     <form onSubmit={submit} className="quote-form-element" noValidate>
       <div className="form-heading">
@@ -284,6 +302,9 @@ export default function QuoteForm() {
         <span>Required Machine Solution</span>
         <select name="need" value={data.need} onChange={change} aria-label="Required machine solution">
           <option value="">Select packaging solution</option>
+          {data.need && !defaultOptionValues.includes(data.need) && (
+            <option value={data.need}>{data.need}</option>
+          )}
           {categories.map((c) => (
             <option key={c.id} value={c.name}>
               {c.name}

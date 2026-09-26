@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { ArrowRight, Menu, X, Phone, Mail } from 'lucide-react';
 
@@ -16,11 +16,36 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
 
+  // Close mobile drawer on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && open) {
+        close();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [open]);
+
+  // Prevent background scroll when mobile drawer is open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [open]);
+
   return (
     <>
       <div className="topbar">
         <div className="container topbar-inner">
-          <span className="topbar-tagline">All Type Customize Packaging Solutions · Ahmedabad, Gujarat</span>
+          <span className="topbar-tagline">
+            All Type Customize Packaging Solutions · Ahmedabad, Gujarat
+          </span>
           <div className="topbar-links">
             <a href="mailto:honeypackaging2007@gmail.com" aria-label="Email primary address">
               <Mail size={13} /> honeypackaging2007@gmail.com
@@ -39,8 +64,8 @@ export default function Navbar() {
               src="/images/logo/honey-packaging-logo.webp"
               alt="Honey Packaging Logo"
               className="brand-logo-img"
-              width="42"
-              height="42"
+              width="44"
+              height="44"
               loading="eager"
             />
             <span className="brand-text-wrap">
@@ -70,7 +95,7 @@ export default function Navbar() {
                 {label}
               </NavLink>
             ))}
-            
+
             <div className="mobile-contact-links">
               <a href="tel:+919909922785" className="mobile-contact-link">
                 <Phone size={15} /> +91 99099 22785

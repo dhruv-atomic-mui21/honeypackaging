@@ -3,7 +3,6 @@ import SEO from '@/components/SEO';
 import {
   ArrowRight,
   BadgeCheck,
-  Boxes,
   Check,
   Clock3,
   Factory,
@@ -15,8 +14,6 @@ import {
   Zap,
 } from 'lucide-react';
 import { categories } from '@/data/products';
-
-
 
 const benefits = [
   {
@@ -39,6 +36,14 @@ const benefits = [
     title: 'Fast dispatch & response',
     text: 'Standard strapping machines and consumables in stock for immediate dispatch across Gujarat and India.',
   },
+];
+
+const flowStages = [
+  { num: '01', title: 'Infeed', desc: 'Carton loading & weighing' },
+  { num: '02', title: 'Tape Seal', desc: 'Top & bottom BOPP seal' },
+  { num: '03', title: 'Strapping', desc: 'Friction heat weld' },
+  { num: '04', title: 'Wrapping', desc: 'Power pre-stretch film' },
+  { num: '05', title: 'Dispatch', desc: 'Pallet staging & transit' },
 ];
 
 export default function Home() {
@@ -115,11 +120,7 @@ export default function Home() {
               Heavy-duty machines that<br />
               <strong>work as hard as you do.</strong>
             </div>
-            <div className="hero-line" aria-hidden="true" />
           </div>
-        </div>
-        <div className="scroll-cue">
-          <span /> Scroll to explore
         </div>
       </section>
 
@@ -199,7 +200,7 @@ export default function Home() {
               <Link className={`product-card ${tone}`} to={`/products?category=${id}`} key={id}>
                 <div className="product-card-top">
                   <div className="product-icon">
-                    <Icon size={25} />
+                    <Icon size={24} />
                   </div>
                   <span className="product-count-badge">
                     {products.length} {products.length > 1 ? 'models' : 'model'}
@@ -219,7 +220,7 @@ export default function Home() {
                   <p>{products.length} packaging solutions</p>
                 </div>
                 <span className="card-arrow-wrap" aria-hidden="true">
-                  <ArrowRight size={16} />
+                  View Specifications <ArrowRight size={15} />
                 </span>
               </Link>
             ))}
@@ -311,23 +312,15 @@ export default function Home() {
                 <i /> LIVE DISPATCH
               </span>
             </div>
-            <div className="flow-visual" role="img" aria-label="Interactive packaging flow animation">
-              <div className="flow-machine machine-one">
-                <div className="machine-screen" />
-                <div className="machine-leg" />
+            <div className="flow-visual" role="img" aria-label="Interactive packaging flow visualizer">
+              <div className="flow-stages-track">
+                {flowStages.map((stage) => (
+                  <div className="flow-stage-item" key={stage.num}>
+                    <div className="flow-stage-num">{stage.num}</div>
+                    <span className="flow-stage-label">{stage.title}</span>
+                  </div>
+                ))}
               </div>
-              <div className="flow-belt">
-                <span />
-                <span />
-                <span />
-                <span />
-              </div>
-              <div className="flow-machine machine-two">
-                <div className="machine-top" />
-                <div className="machine-leg" />
-              </div>
-              <div className="flow-box box-one" />
-              <div className="flow-box box-two" />
             </div>
             <div className="flow-footer">
               <span>
