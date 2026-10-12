@@ -1,10 +1,23 @@
 import { Link } from 'react-router-dom';
 import SEO from '@/components/SEO';
-import { ArrowRight, Check, Boxes, CircleDot, PackageCheck, MoveRight, Phone, MessageCircle } from 'lucide-react';
+import {
+  ArrowRight,
+  Check,
+  Boxes,
+  CircleDot,
+  PackageCheck,
+  MoveRight,
+  Phone,
+  MessageCircle,
+  Activity,
+  ShieldCheck,
+  Cpu,
+} from 'lucide-react';
 
 const flows = [
   {
     icon: Boxes,
+    code: 'FLOW-SEQ-01',
     title: 'Carton Strapping & Automated Dispatch',
     steps: [
       'Cartons packed & weighed at loading station',
@@ -17,6 +30,7 @@ const flows = [
   },
   {
     icon: CircleDot,
+    code: 'FLOW-SEQ-02',
     title: 'High-Throughput Pallet Stretch Wrapping',
     steps: [
       'Pallet loaded onto heavy-duty rotating turntable',
@@ -29,6 +43,7 @@ const flows = [
   },
   {
     icon: PackageCheck,
+    code: 'FLOW-SEQ-03',
     title: 'Retail Presentation & Shrink Bundling',
     steps: [
       'Multi-packs or promotional units collated at infeed',
@@ -41,6 +56,7 @@ const flows = [
   },
   {
     icon: MoveRight,
+    code: 'FLOW-SEQ-04',
     title: 'Custom In-Line Conveyor Integration',
     steps: [
       'Gravity roller infeed from primary manufacturing cells',
@@ -64,58 +80,73 @@ const whyChoose = [
 
 export default function Solutions() {
   return (
-    <main className="page-main">
+    <main className="page-main industrial-solutions-page">
       <SEO
-        title="Packaging Line Solutions &amp; Factory Automation | Honey Packaging"
+        title="Packaging Line Solutions & Factory Automation | Honey Packaging"
         description="Discover custom packaging flows, online strapping conveyor integrations, pallet wrapping systems, and retail shrink bundling engineered for Gujarat manufacturing plants."
         path="/solutions"
       />
 
-      <section className="page-hero">
+      {/* Solutions Page Hero */}
+      <section className="page-hero-industrial">
         <div className="container page-hero-inner">
-          <span className="section-kicker light">End-to-End Factory Workflows</span>
-          <h1 className="page-title">
+          <div className="hero-telemetry-tag">
+            <span className="live-status-pulse" />
+            <span className="telemetry-text">END-TO-END FACTORY WORKFLOWS // PACKAGING AUTOMATION</span>
+          </div>
+
+          <h1 className="page-title-industrial">
             Not Just a Machine.<br />
-            <em>A Better Rhythm.</em>
+            <span className="text-gold-gradient">A Better Rhythm.</span>
           </h1>
-          <p className="page-lead">
+
+          <p className="page-lead-industrial">
             We design integrated packaging workflows that fit your floor layout, operator speed, and output goals — then fabricate and commission the equipment to make them run seamlessly.
           </p>
         </div>
       </section>
 
-      {/* Packing Flow Cards */}
-      <section className="section">
+      {/* Engineered Line Sequences */}
+      <section className="section industrial-flows-section">
         <div className="container">
-          <div className="section-heading">
-            <span className="section-kicker">Engineered Line Sequences</span>
-            <h2>
+          <div className="section-heading-industrial">
+            <span className="tech-mono-badge">SYNCHRONIZED PACKING LINES</span>
+            <h2 className="section-title-large">
               Packaging Flows That<br />
-              <em>Eliminate Factory Bottlenecks.</em>
+              <span className="text-gold-gradient">Eliminate Factory Bottlenecks.</span>
             </h2>
           </div>
 
-          <div className="flows-grid">
-            {flows.map(({ icon: Icon, title, steps, tone }) => (
-              <article className={`flow-detail-card ${tone}`} key={title}>
-                <div className={`flow-detail-icon ${tone}`}>
-                  <Icon size={22} />
+          <div className="industrial-flows-grid">
+            {flows.map(({ icon: Icon, code, title, steps, tone }) => (
+              <article className={`industrial-flow-card tone-${tone}`} key={title}>
+                <div className="flow-card-head">
+                  <div className="flow-icon-circle">
+                    <Icon size={22} className="text-gold" />
+                  </div>
+                  <span className="flow-code-badge">{code}</span>
                 </div>
-                <h3>{title}</h3>
-                <ol className="flow-steps">
+
+                <h3 className="flow-card-heading">{title}</h3>
+
+                <ol className="flow-steps-ladder">
                   {steps.map((s, i) => (
-                    <li key={i}>
-                      <span className="step-num">{String(i + 1).padStart(2, '0')}</span>
-                      <span>{s}</span>
+                    <li key={i} className="flow-step-node">
+                      <span className="step-node-number">{String(i + 1).padStart(2, '0')}</span>
+                      <span className="step-node-label">{s}</span>
                     </li>
                   ))}
                 </ol>
-                <Link
-                  to={`/contact?need=${encodeURIComponent(title)}`}
-                  className="flow-cta"
-                >
-                  Configure This Line <ArrowRight size={14} />
-                </Link>
+
+                <div className="flow-card-bottom">
+                  <Link
+                    to={`/contact?need=${encodeURIComponent(title)}`}
+                    className="button button-gold flow-inquire-btn"
+                  >
+                    <span>Configure This Line</span>
+                    <ArrowRight size={14} />
+                  </Link>
+                </div>
               </article>
             ))}
           </div>
@@ -123,56 +154,76 @@ export default function Solutions() {
       </section>
 
       {/* Why Choose Honey Packaging */}
-      <section className="section dark-section">
-        <div className="container why-grid">
-          <div>
-            <span className="section-kicker light">Why Gujarat Manufacturers Choose Us</span>
-            <h2>
+      <section className="section industrial-why-section">
+        <div className="container why-grid-container">
+          <div className="why-copy-col">
+            <span className="tech-mono-badge">THE GUJARAT MANUFACTURING ADVANTAGE</span>
+            <h2 className="section-title-large">
               Practical Engineering.<br />
-              <em>Real Factory Results.</em>
+              <span className="text-gold-gradient">Real Factory Results.</span>
             </h2>
-            <p className="why-desc">
-              We never push pre-packaged items that do not fit your space. We inspect your production constraints first, calculate your consumable savings, and supply the optimal machinery.
+            <p className="why-lead-desc">
+              We never push pre-packaged machines that do not fit your space. We inspect your production constraints first, calculate your consumable savings, and supply the optimal machinery.
             </p>
-            <div className="cta-button-group mt-8">
+
+            <div className="why-actions-group">
               <Link to="/contact" className="button button-gold">
-                Start Technical Consultation <ArrowRight size={16} />
+                <span>Start Technical Consultation</span>
+                <ArrowRight size={16} />
               </Link>
               <a
                 href="https://wa.me/919909922785"
-                className="button button-ghost-light"
+                className="button button-whatsapp"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <MessageCircle size={15} /> WhatsApp Us
+                <MessageCircle size={15} />
+                <span>WhatsApp Us</span>
               </a>
             </div>
           </div>
 
-          <ul className="why-list" aria-label="Key engineering benefits">
-            {whyChoose.map((w) => (
-              <li key={w}>
-                <Check size={16} className="text-gold" />
-                <span>{w}</span>
-              </li>
-            ))}
-          </ul>
+          <div className="why-cards-col">
+            <div className="why-checklist-panel">
+              <div className="why-panel-header">
+                <ShieldCheck size={16} className="text-gold" />
+                <span>OUR 6 CORE ENGINEERING STANDARDS</span>
+              </div>
+              <ul className="why-items-list">
+                {whyChoose.map((w, idx) => (
+                  <li key={w} className="why-item-row">
+                    <div className="why-item-marker">
+                      <Check size={14} className="text-gold" />
+                    </div>
+                    <span className="why-item-text">{w}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Bottom CTA Banner */}
-      <section className="page-cta-strip">
-        <div className="container page-cta-inner">
-          <div>
-            <h3>Tell us what you are packing and your daily target throughput</h3>
-            <p>Our engineering team will draft an optimal conveyor layout and machine recommendation for your plant.</p>
+      <section className="industrial-cta-banner">
+        <div className="container cta-banner-inner">
+          <div className="cta-banner-text">
+            <span className="tech-mono-badge">PLANT LAYOUT CONSULTATION</span>
+            <h2 className="cta-headline">
+              Tell Us What You Are Packing &amp; Your Target Throughput
+            </h2>
+            <p className="cta-subtext">
+              Our engineering team will draft an optimal conveyor layout and machine recommendation for your plant within 24 hours.
+            </p>
           </div>
-          <div className="cta-button-group">
-            <Link to="/contact" className="button button-primary">
-              Design My Packing Line <ArrowRight size={16} />
+          <div className="cta-banner-actions">
+            <Link to="/contact" className="button button-gold cta-main-btn">
+              <span>Design My Packing Line</span>
+              <ArrowRight size={16} />
             </Link>
-            <a href="tel:+919909922785" className="button button-dark">
-              <Phone size={15} /> +91 99099 22785
+            <a href="tel:+919909922785" className="button button-ghost-light cta-wa-btn">
+              <Phone size={15} />
+              <span>+91 99099 22785</span>
             </a>
           </div>
         </div>

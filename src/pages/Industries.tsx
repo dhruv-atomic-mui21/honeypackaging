@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import SEO from '@/components/SEO';
-import { ArrowRight, MessageCircle } from 'lucide-react';
+import { ArrowRight, Phone, MessageCircle, Factory, ShieldCheck, Cpu } from 'lucide-react';
 
 const industries = [
   {
@@ -43,52 +43,76 @@ const industries = [
 
 export default function Industries() {
   return (
-    <main className="page-main">
+    <main className="page-main industrial-industries-page">
       <SEO
-        title="Industries Served | Packaging Machinery for FMCG, Food &amp; Pharma | Honey Packaging"
+        title="Industries Served | Packaging Machinery for FMCG, Food & Pharma | Honey Packaging"
         description="Explore packaging machinery tailored for Food & Beverage, FMCG, Pharma, Logistics, Agro, and Heavy Engineering across Gujarat manufacturing plants."
         path="/industries"
       />
 
-      <section className="page-hero">
+      {/* Hero Section */}
+      <section className="page-hero-industrial">
         <div className="container page-hero-inner">
-          <span className="section-kicker light">Industrial Sector Expertise</span>
-          <h1 className="page-title">
+          <div className="hero-telemetry-tag">
+            <span className="live-status-pulse" />
+            <span className="telemetry-text">SECTOR EXPERTISE // GUJARAT MANUFACTURING CORRIDORS</span>
+          </div>
+
+          <h1 className="page-title-industrial">
             Wherever Products<br />
-            <em>Need to Move Securely.</em>
+            <span className="text-gold-gradient">Need to Move Securely.</span>
           </h1>
-          <p className="page-lead">
+
+          <p className="page-lead-industrial">
             Six primary manufacturing verticals. One dedicated packaging partner. Machines configured to your product density, carton durability, and daily dispatch volumes.
           </p>
         </div>
       </section>
 
-      <section className="section">
+      {/* Industries Matrix */}
+      <section className="section industrial-sectors-section">
         <div className="container">
-          <div className="industries-detail-grid">
+          <div className="section-heading-industrial">
+            <span className="tech-mono-badge">APPLICATION SPECS</span>
+            <h2 className="section-title-large">
+              Engineered for Your<br />
+              <span className="text-gold-gradient">Production Environment.</span>
+            </h2>
+          </div>
+
+          <div className="industrial-sectors-grid">
             {industries.map(({ num, name, desc, machines }) => (
-              <article className="industry-detail-card" key={num}>
-                <span className="industry-num" aria-hidden="true">
-                  {num}
-                </span>
-                <div className="industry-content">
-                  <h3>{name}</h3>
-                  <p>{desc}</p>
-                  <div className="industry-machines" aria-label="Recommended machinery">
+              <article className="industrial-sector-card" key={num}>
+                <div className="sector-card-header">
+                  <span className="sector-num-badge">SECTOR {num}</span>
+                  <Factory size={18} className="text-gold" />
+                </div>
+
+                <h3 className="sector-name">{name}</h3>
+                <p className="sector-desc">{desc}</p>
+
+                <div className="sector-machinery-box">
+                  <span className="machinery-box-title">
+                    <Cpu size={12} className="text-gold" />
+                    RECOMMENDED MACHINERY
+                  </span>
+                  <div className="machinery-tags-wrap">
                     {machines.map((m) => (
-                      <span key={m} className="machine-tag">
+                      <span key={m} className="machinery-pill-tag">
                         {m}
                       </span>
                     ))}
                   </div>
-                  <div className="industry-card-actions">
-                    <Link
-                      to={`/contact?need=${encodeURIComponent(`Inquiry for ${name}`)}`}
-                      className="text-link font-semibold"
-                    >
-                      Get Quote for {name.split('&')[0].trim()} <ArrowRight size={14} />
-                    </Link>
-                  </div>
+                </div>
+
+                <div className="sector-card-footer">
+                  <Link
+                    to={`/contact?need=${encodeURIComponent(`Inquiry for ${name}`)}`}
+                    className="button button-gold sector-quote-btn"
+                  >
+                    <span>Get Quote for {name.split('&')[0].trim()}</span>
+                    <ArrowRight size={14} />
+                  </Link>
                 </div>
               </article>
             ))}
@@ -96,24 +120,26 @@ export default function Industries() {
         </div>
       </section>
 
-      {/* Bottom CTA */}
-      <section className="page-cta-strip">
-        <div className="container page-cta-inner">
-          <div>
-            <h3>Have a specialized industrial product or irregular packing shape?</h3>
-            <p>We build customized conveyor sections and strapping machines adapted to non-standard items.</p>
+      {/* Industrial Page Bottom CTA Strip */}
+      <section className="industrial-cta-banner">
+        <div className="container cta-banner-inner">
+          <div className="cta-banner-text">
+            <span className="tech-mono-badge">SECTOR SPECIFIC ADVICE</span>
+            <h2 className="cta-headline">
+              Not Sure Which Configuration Suits Your Line?
+            </h2>
+            <p className="cta-subtext">
+              Share your product dimensions, line speed, and operating conditions. Our technical team will recommend the right machine.
+            </p>
           </div>
-          <div className="cta-button-group">
-            <Link to="/contact" className="button button-primary">
-              Consult an Engineer <ArrowRight size={16} />
+          <div className="cta-banner-actions">
+            <Link to="/contact" className="button button-gold cta-main-btn">
+              <span>Talk to an Engineer</span>
+              <ArrowRight size={16} />
             </Link>
-            <a
-              href="https://wa.me/919909922785"
-              className="button button-dark"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <MessageCircle size={15} /> WhatsApp Discussion
+            <a href="tel:+919909922785" className="button button-ghost-light cta-wa-btn">
+              <Phone size={15} />
+              <span>+91 99099 22785</span>
             </a>
           </div>
         </div>

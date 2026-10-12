@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { ArrowRight, Menu, X, Phone, Mail } from 'lucide-react';
+import { ArrowRight, Menu, X, Phone, Mail, MessageCircle } from 'lucide-react';
 
 const navLinks = [
   { to: '/', label: 'Home' },
@@ -14,7 +14,16 @@ const navLinks = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const close = () => setOpen(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Close mobile drawer on Escape key
   useEffect(() => {
@@ -41,75 +50,121 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="topbar">
+      {/* Precision Industrial Topbar */}
+      <div className="topbar-industrial">
         <div className="container topbar-inner">
-          <span className="topbar-tagline">
-            All Type Customize Packaging Solutions · Ahmedabad, Gujarat
-          </span>
+          <div className="topbar-left-tag">
+            <span className="live-status-pulse small-pulse" />
+            <span className="topbar-tagline">
+              All Type Customize Packaging Solutions · Ahmedabad, Gujarat
+            </span>
+          </div>
           <div className="topbar-links">
-            <a href="mailto:honeypackaging2007@gmail.com" aria-label="Email primary address">
-              <Mail size={13} /> honeypackaging2007@gmail.com
+            <a href="mailto:honeypackaging2007@gmail.com" className="topbar-link-item" aria-label="Email primary address">
+              <Mail size={12} className="text-gold" />
+              <span>honeypackaging2007@gmail.com</span>
             </a>
-            <a href="tel:+919909922785" aria-label="Call phone number">
-              <Phone size={13} /> +91 99099 22785
+            <a href="tel:+919909922785" className="topbar-link-item" aria-label="Call phone number">
+              <Phone size={12} className="text-gold" />
+              <span>+91 99099 22785</span>
             </a>
           </div>
         </div>
       </div>
 
-      <header className="navbar">
+      {/* Main Navbar */}
+      <header className={`navbar-industrial ${scrolled ? 'nav-scrolled' : ''}`}>
         <div className="container nav-inner">
-          <Link className="brand" to="/" onClick={close} aria-label="Honey Packaging Home">
-            <img
-              src="/images/logo/honey-packaging-logo.webp"
-              alt="Honey Packaging Logo"
-              className="brand-logo-img"
-              width="44"
-              height="44"
-              loading="eager"
-            />
-            <span className="brand-text-wrap">
-              <strong>HONEY PACKAGING</strong>
-              <small>CUSTOMIZE PACKAGING SOLUTIONS</small>
-            </span>
+          {/* Brand Logo & Name */}
+          <Link className="brand-industrial" to="/" onClick={close} aria-label="Honey Packaging Home">
+            <div className="brand-logo-frame">
+              <img
+                src="/images/logo/honey-packaging-logo.webp"
+                alt="Honey Packaging Logo"
+                className="brand-logo-img"
+                width="42"
+                height="42"
+                loading="eager"
+              />
+            </div>
+            <div className="brand-text-block">
+              <strong className="brand-name">HONEY PACKAGING</strong>
+              <small className="brand-sub">CUSTOMIZE PACKAGING SOLUTIONS</small>
+            </div>
           </Link>
 
-          <button
-            className="menu-toggle"
-            onClick={() => setOpen((o) => !o)}
-            aria-label={open ? 'Close main navigation menu' : 'Open main navigation menu'}
-            aria-expanded={open}
-          >
-            {open ? <X size={24} /> : <Menu size={24} />}
-          </button>
-
-          <nav className={open ? 'main-nav open' : 'main-nav'} aria-label="Main navigation">
+          {/* Desktop Nav Items */}
+          <nav className="desktop-nav-menu" aria-label="Main navigation">
             {navLinks.map(({ to, label }) => (
               <NavLink
                 key={to}
                 to={to}
-                onClick={close}
                 end={to === '/'}
-                className={({ isActive }) => (isActive ? 'nav-active' : '')}
+                className={({ isActive }) =>
+                  `nav-item-link ${isActive ? 'nav-item-active' : ''}`
+                }
               >
                 {label}
               </NavLink>
             ))}
+          </nav>
 
-            <div className="mobile-contact-links">
-              <a href="tel:+919909922785" className="mobile-contact-link">
-                <Phone size={15} /> +91 99099 22785
-              </a>
-              <a href="mailto:honeypackaging2007@gmail.com" className="mobile-contact-link">
-                <Mail size={15} /> honeypackaging2007@gmail.com
-              </a>
+          {/* Right Action Button */}
+          <div className="nav-action-desktop">
+            <Link to="/contact" className="button button-gold nav-quote-btn">
+              <span>Get Quote</span>
+              <ArrowRight size={14} />
+            </Link>
+          </div>
+
+          {/* Mobile Menu Hamburger */}
+          <button
+            className="menu-toggle-btn"
+            onClick={() => setOpen((o) => !o)}
+            aria-label={open ? 'Close main navigation menu' : 'Open main navigation menu'}
+            aria-expanded={open}
+          >
+            {open ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
+
+        {/* Mobile Navigation Drawer */}
+        <div className={`mobile-nav-drawer ${open ? 'drawer-open' : ''}`}>
+          <div className="mobile-nav-inner">
+            <div className="mobile-nav-links">
+              {navLinks.map(({ to, label }) => (
+                <NavLink
+                  key={to}
+                  to={to}
+                  onClick={close}
+                  end={to === '/'}
+                  className={({ isActive }) =>
+                    `mobile-nav-link ${isActive ? 'mobile-active' : ''}`
+                  }
+                >
+                  <span>{label}</span>
+                  <ArrowRight size={15} className="mobile-chevron" />
+                </NavLink>
+              ))}
             </div>
 
-            <Link className="nav-cta" to="/contact" onClick={close}>
-              <span>Get a Quote</span>
-              <ArrowRight size={15} />
-            </Link>
-          </nav>
+            <div className="mobile-drawer-bottom">
+              <Link to="/contact" onClick={close} className="button button-gold full-width">
+                <span>Request Custom Quote</span>
+                <ArrowRight size={16} />
+              </Link>
+              <div className="mobile-contact-chips">
+                <a href="tel:+919909922785" className="mobile-chip">
+                  <Phone size={14} className="text-gold" />
+                  <span>+91 99099 22785</span>
+                </a>
+                <a href="https://wa.me/919909922785" target="_blank" rel="noopener noreferrer" className="mobile-chip">
+                  <MessageCircle size={14} className="text-emerald" />
+                  <span>WhatsApp</span>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </header>
     </>

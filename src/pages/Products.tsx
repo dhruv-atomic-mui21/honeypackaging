@@ -1,7 +1,18 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import SEO from '@/components/SEO';
-import { ArrowRight, Check, Phone, MessageCircle, Search, X } from 'lucide-react';
+import {
+  ArrowRight,
+  Check,
+  Phone,
+  MessageCircle,
+  Search,
+  X,
+  Cpu,
+  Layers,
+  Sparkles,
+  SlidersHorizontal,
+} from 'lucide-react';
 import { categories } from '@/data/products';
 
 export default function Products() {
@@ -27,7 +38,7 @@ export default function Products() {
 
   const current = categories.find((c) => c.id === active) || categories[0];
 
-  // Search filtering
+  // Search filtering across current category products
   const filteredProducts = useMemo(() => {
     if (!searchQuery.trim()) {
       return current.products;
@@ -42,68 +53,69 @@ export default function Products() {
   }, [current, searchQuery]);
 
   return (
-    <main className="page-main">
+    <main className="page-main industrial-products-page">
       <SEO
         title="Industrial Packaging Machines & Conveyors | Honey Packaging"
         description="Explore our full catalogue of box strapping machines, pallet stretch wrappers, carton sealers, shrink tunnels & customized conveyors. Sourced and serviced in Ahmedabad, Gujarat."
         path="/products"
       />
 
-      <section className="page-hero">
+      {/* Page Hero */}
+      <section className="page-hero-industrial">
         <div className="container page-hero-inner">
-          <span className="section-kicker light">Industrial Machinery Catalogue</span>
-          <h1 className="page-title">
-            All Our<br />
-            <em>Packaging Solutions.</em>
+          <div className="hero-telemetry-tag">
+            <span className="live-status-pulse" />
+            <span className="telemetry-text">EQUIPMENT CATALOGUE // DIRECT FACTORY SUPPLY</span>
+          </div>
+
+          <h1 className="page-title-industrial">
+            All Industrial<br />
+            <span className="text-gold-gradient">Packaging Solutions.</span>
           </h1>
-          <p className="page-lead">
-            Manufactured, supplied, and supported from Kathwada, Ahmedabad. Every machine customizable to your package specifications and line throughput.
+
+          <p className="page-lead-industrial">
+            Manufactured, supplied, and supported from Kathwada, Ahmedabad. Every machine customizable to your exact package dimensions, line throughput, and plant floor layout.
           </p>
         </div>
       </section>
 
       <section className="section products-full-section">
         <div className="container">
-          {/* Category Tabs & Quick Search */}
-          <div className="cat-nav-toolbar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', marginBottom: '32px' }}>
-            <div className="cat-tabs" role="tablist" aria-label="Product Categories" style={{ marginBottom: 0, borderBottom: 'none', paddingBottom: 0 }}>
+          {/* Category Tabs & Quick Search Toolbar */}
+          <div className="industrial-catalogue-toolbar">
+            <div className="category-pill-tabs" role="tablist" aria-label="Product Categories">
               {categories.map((c) => (
                 <button
                   key={c.id}
+                  type="button"
                   role="tab"
                   aria-selected={active === c.id}
-                  className={`cat-tab ${active === c.id ? 'cat-tab-active' : ''}`}
+                  className={`category-pill-tab ${active === c.id ? 'active-pill' : ''}`}
                   onClick={() => handleTabClick(c.id)}
                 >
                   <c.icon size={16} />
                   <span>{c.name}</span>
+                  <span className="pill-count-bubble">{c.products.length}</span>
                 </button>
               ))}
             </div>
 
-            <div style={{ position: 'relative', minWidth: '260px' }}>
-              <Search size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+            <div className="industrial-search-box">
+              <Search size={16} className="search-icon-adornment" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder={`Search in ${current.name}...`}
-                style={{
-                  padding: '9px 36px 9px 36px',
-                  borderRadius: '8px',
-                  border: '1px solid var(--border-light)',
-                  background: '#ffffff',
-                  fontSize: '0.9rem',
-                  width: '100%',
-                }}
+                placeholder={`Search ${current.name}...`}
+                className="industrial-search-input"
                 aria-label={`Search in ${current.name}`}
               />
               {searchQuery && (
                 <button
                   type="button"
                   onClick={() => setSearchQuery('')}
-                  style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }}
-                  aria-label="Clear search"
+                  className="search-clear-btn"
+                  aria-label="Clear search query"
                 >
                   <X size={14} />
                 </button>
@@ -111,104 +123,144 @@ export default function Products() {
             </div>
           </div>
 
-          {/* Active Category Header */}
-          <div className="cat-detail">
-            <div className="cat-detail-header">
-              <div className={`cat-icon-lg ${current.tone}`}>
-                <current.icon size={28} />
+          {/* Active Category Header Banner */}
+          <div className="active-category-hero-card">
+            <div className="cat-hero-left">
+              <div className={`category-large-avatar tone-${current.tone}`}>
+                <current.icon size={30} />
               </div>
-              <div>
-                <h2>{current.name}</h2>
-                <p className="cat-tagline">{current.tagline}</p>
-                <p className="cat-desc">{current.description}</p>
+              <div className="cat-hero-text">
+                <div className="cat-meta-row">
+                  <span className="cat-model-count-tag">
+                    {current.products.length} {current.products.length > 1 ? 'MODELS AVAILABLE' : 'MODEL AVAILABLE'}
+                  </span>
+                  <span className="cat-location-tag">KATHWADA WORKS · AHMEDABAD</span>
+                </div>
+                <h2 className="cat-hero-title">{current.name}</h2>
+                <p className="cat-hero-tagline">{current.tagline}</p>
+                <p className="cat-hero-description">{current.description}</p>
               </div>
             </div>
+          </div>
 
-            {/* Product Cards Grid */}
-            {filteredProducts.length > 0 ? (
-              <div className="product-detail-grid">
-                {filteredProducts.map((p) => (
-                  <article className="product-detail-card" key={p.id}>
-                    <div className="product-img-frame">
-                      <img
-                        src={p.image}
-                        alt={p.alt}
-                        width="400"
-                        height="300"
-                        loading="lazy"
-                        className="product-card-img"
-                      />
-                    </div>
-                    <div className="product-card-body">
-                      <h3>{p.name}</h3>
-                      <p className="product-short-desc">{p.shortDesc}</p>
+          {/* Products Grid */}
+          {filteredProducts.length > 0 ? (
+            <div className="industrial-products-grid">
+              {filteredProducts.map((p, index) => (
+                <article className="industrial-product-card" key={p.id}>
+                  {/* Card Header Tag */}
+                  <div className="product-card-top-tag">
+                    <span className="product-index-code">MODEL #{String(index + 1).padStart(2, '0')}</span>
+                    <span className="product-status-tag">HEAVY INDUSTRIAL</span>
+                  </div>
 
-                      {p.specs.length > 0 && (
-                        <ul className="product-specs">
+                  {/* Machine Photo Viewfinder */}
+                  <div className="product-viewfinder-frame">
+                    <div className="frame-corner corner-tl">+</div>
+                    <div className="frame-corner corner-tr">+</div>
+                    <div className="frame-corner corner-bl">+</div>
+                    <div className="frame-corner corner-br">+</div>
+
+                    <img
+                      src={p.image}
+                      alt={p.alt}
+                      width="400"
+                      height="300"
+                      loading="lazy"
+                      className="product-card-photo"
+                    />
+                  </div>
+
+                  {/* Card Content Body */}
+                  <div className="product-card-content">
+                    <h3 className="product-card-name">{p.name}</h3>
+                    <p className="product-card-brief">{p.shortDesc}</p>
+
+                    {/* Technical Specifications Matrix */}
+                    {p.specs.length > 0 && (
+                      <div className="product-card-specs-box">
+                        <div className="specs-box-title">
+                          <Cpu size={13} className="text-gold" />
+                          <span>SPECIFICATIONS</span>
+                        </div>
+                        <ul className="product-specs-list">
                           {p.specs.map((s) => (
-                            <li key={s}>
-                              <Check size={13} className="spec-check-icon" />
+                            <li key={s} className="spec-list-item">
+                              <Check size={13} className="spec-check text-gold" />
                               <span>{s}</span>
                             </li>
                           ))}
                         </ul>
-                      )}
-
-                      <div className="product-card-actions">
-                        <Link
-                          to={`/contact?need=${encodeURIComponent(p.name)}`}
-                          className="button button-primary-sm full-width"
-                        >
-                          Request Quote <ArrowRight size={14} />
-                        </Link>
-                        <a
-                          href={`https://wa.me/919909922785?text=${encodeURIComponent(
-                            `Hello Honey Packaging, I want to inquire about the ${p.name}.`
-                          )}`}
-                          className="button button-ghost-sm"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`Inquire about ${p.name} on WhatsApp`}
-                        >
-                          <MessageCircle size={14} /> WhatsApp
-                        </a>
                       </div>
+                    )}
+
+                    {/* Dual Action CTA Buttons */}
+                    <div className="product-card-action-bar">
+                      <Link
+                        to={`/contact?need=${encodeURIComponent(p.name)}`}
+                        className="button button-gold card-rfq-btn"
+                      >
+                        <span>Request Quote</span>
+                        <ArrowRight size={14} />
+                      </Link>
+                      <a
+                        href={`https://wa.me/919909922785?text=${encodeURIComponent(
+                          `Hello Honey Packaging, I want to inquire about the ${p.name}.`
+                        )}`}
+                        className="button button-ghost-light card-wa-btn"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Inquire about ${p.name} on WhatsApp`}
+                      >
+                        <MessageCircle size={15} />
+                        <span>WhatsApp</span>
+                      </a>
                     </div>
-                  </article>
-                ))}
-              </div>
-            ) : (
-              <div style={{ textAlign: 'center', padding: '64px 0', color: 'var(--text-muted)' }}>
-                <p style={{ fontSize: '1.1rem', marginBottom: '8px' }}>
-                  No machinery models found matching &quot;{searchQuery}&quot; in {current.name}.
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="products-empty-state">
+              <div className="empty-state-card">
+                <SlidersHorizontal size={36} className="empty-icon text-gold" />
+                <h3>No Machinery Models Found</h3>
+                <p>
+                  No machinery models in &quot;{current.name}&quot; matched your search for &quot;{searchQuery}&quot;.
                 </p>
                 <button
                   type="button"
                   onClick={() => setSearchQuery('')}
-                  className="button button-ghost-sm"
-                  style={{ marginTop: '12px' }}
+                  className="button button-gold mt-4"
                 >
-                  Clear search filter
+                  Reset Search Filter
                 </button>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </section>
 
-      {/* Bottom CTA Banner */}
-      <section className="page-cta-strip">
-        <div className="container page-cta-inner">
-          <div>
-            <h3>Need a custom line configuration or site assessment?</h3>
-            <p>Our engineers fabricate customized conveyors and integration layouts tailored to your exact floor plan.</p>
+      {/* Industrial Page Bottom CTA Strip */}
+      <section className="industrial-cta-banner">
+        <div className="container cta-banner-inner">
+          <div className="cta-banner-text">
+            <span className="tech-mono-badge">CUSTOM ENGINEERING CAPABILITY</span>
+            <h2 className="cta-headline">
+              Need a Custom Conveyor Line or Site Assessment?
+            </h2>
+            <p className="cta-subtext">
+              Our engineers fabricate customized conveyors, in-line strapping arches, and integration layouts tailored to your exact floor plan.
+            </p>
           </div>
-          <div className="cta-button-group">
-            <Link to="/contact" className="button button-primary">
-              Get a Custom Quote <ArrowRight size={16} />
+          <div className="cta-banner-actions">
+            <Link to="/contact" className="button button-gold cta-main-btn">
+              <span>Get a Custom Quote</span>
+              <ArrowRight size={16} />
             </Link>
-            <a href="tel:+919909922785" className="button button-dark">
-              <Phone size={15} /> +91 99099 22785
+            <a href="tel:+919909922785" className="button button-ghost-light cta-wa-btn">
+              <Phone size={15} />
+              <span>+91 99099 22785</span>
             </a>
           </div>
         </div>
