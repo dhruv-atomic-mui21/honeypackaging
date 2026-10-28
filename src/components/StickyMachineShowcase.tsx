@@ -41,18 +41,18 @@ const showcaseItems: ShowcaseItem[] = [
     title: 'Automatic & Semi-Auto Box Strapping Systems',
     tagline: 'High-speed friction heat welding for industrial carton stabilization',
     description:
-      'Engineered for rigorous daily factory shifts across Gujarat. Features heavy-gauge steel chassis, high-torque direct feed motors, and instant thermal friction welding. Available in standalone foot-pedal tables, high-speed arch models (up to 60 straps/min), and fully motorized conveyor online systems.',
-    image: '/images/catalog/strapping-arch-type-heavy.webp',
-    alt: 'High-speed automatic box strapping machine with overhead arch',
+      'Engineered for rigorous daily factory shifts across Gujarat. Features heavy-gauge steel chassis, high-torque direct feed motors, and instant thermal friction welding. Available in standalone foot-pedal tables, multi-directional ball-roller tops for heavy cartons, and fully motorized conveyor online systems.',
+    image: '/images/catalog/strapping-semi-auto-mst-n.webp',
+    alt: 'Semi-automatic and automated box strapping machinery',
     badge: 'HEAVY INDUSTRIAL DUTY',
     categorySlug: 'strapping',
     specs: [
       { label: 'Strap Width', value: '5 mm – 15 mm' },
-      { label: 'Cycle Speed', value: 'Up to 60 cycles/min' },
+      { label: 'Cycle Speed', value: '1.5 – 2.0 sec / cycle' },
       { label: 'Seal Mechanism', value: 'Thermal Friction Weld' },
       { label: 'Tension Range', value: '15 – 45 kgf adjustable' },
       { label: 'Power Supply', value: '220V / 50Hz AC' },
-      { label: 'Feed System', value: 'Direct Motor Driven Arch' },
+      { label: 'Operation Mode', value: 'Tabletop & In-Line Automation' },
     ],
     highlights: [
       'Zero strap jamming mechanism with auto strap loop ejector',
@@ -60,7 +60,7 @@ const showcaseItems: ShowcaseItem[] = [
       'Wear-resistant alloy worktable tested for heavy 50kg+ cartons',
       'Dual presence support with genuine spares from Kathwada, Ahmedabad',
     ],
-    inquiryName: 'Automatic Box Strapping Machine',
+    inquiryName: 'Box Strapping Machine',
   },
   {
     id: 'pallet-wrapping',

@@ -37,8 +37,8 @@ export const categories: ProductCategory[] = [
     tone: 'gold',
     tagline: 'Secure every carton, every time',
     description: 'Semi-automatic and fully automatic strapping solutions engineered for high speed, rigid compression, and all carton sizes.',
-    image: '/images/catalog/strapping-arch-type-heavy.webp',
-    alt: 'High-speed automatic box strapping machine',
+    image: '/images/catalog/strapping-semi-auto-mst-n.webp',
+    alt: 'Industrial box strapping machine',
     products: [
       {
         id: 'semi-auto-strapping',
@@ -55,14 +55,6 @@ export const categories: ProductCategory[] = [
         image: '/images/products/strapping-ball-table.webp',
         alt: 'Semi-Automatic Box Strapping Machine with multi-directional ball transfer roller tabletop',
         specs: ['Operation: Semi-automatic tabletop cycle', 'Tabletop: Integrated steel ball-bearing rollers', 'Strap width: 6–15 mm adjustable', 'Ideal for heavy boxes, tiles, and cross-strapping'],
-      },
-      {
-        id: 'auto-strapping',
-        name: 'Fully Automatic Box Strapping Machine (High-Speed Arch)',
-        shortDesc: 'Overhead arch with high-speed automated strap feed, heat seal, and auto strap loop ejection.',
-        image: '/images/catalog/strapping-arch-type-heavy.webp',
-        alt: 'Automatic Box Strapping Machine with overhead arch and strapping reel',
-        specs: ['Operation: Fully automatic arch cycle', 'Strap width: 5–12 mm', 'Speed: up to 60 cycles/min', 'Seal type: friction heat weld'],
       },
       {
         id: 'auto-strapping-online',
