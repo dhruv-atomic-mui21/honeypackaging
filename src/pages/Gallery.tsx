@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '@/components/SEO';
-import { ImageIcon, ArrowRight, X, MessageCircle, ZoomIn } from 'lucide-react';
+import { ImageIcon, ArrowRight, X, MessageCircle, ZoomIn, Play } from 'lucide-react';
 
 interface GalleryItem {
   id: string;
@@ -84,6 +84,38 @@ const galleryItems: GalleryItem[] = [
     caption: 'Direct-drive high-torque motor and electronic control module inside our heavy-duty semi-automatic strapping unit.',
     category: 'Factory',
     client: 'Engineering & Fabrication Detail',
+  },
+  {
+    id: 'g-free-roller-conveyor',
+    src: '/images/catalog/conveyor-free-roller-industrial.webp',
+    title: 'Custom Fabricated Free Roller Conveyor Bed',
+    caption: 'Heavy-duty steel gravity roller conveyor with precision bearings and zinc-coated rollers fabricated for client dispatch flow.',
+    category: 'Conveyors',
+    client: 'Kathwada Fabrication Unit',
+  },
+  {
+    id: 'g-horizontal-pressing',
+    src: '/images/catalog/strapping-auto-press-assembly.webp',
+    title: 'Horizontal Pneumatic Compression & Strapping Machine',
+    caption: 'Custom dual-platen horizontal pressing machine for bundling corrugated cartons, foam sheets, and textile bundles.',
+    category: 'Strapping',
+    client: 'Industrial Packaging Workshop',
+  },
+  {
+    id: 'g-pneumatic-aqd19',
+    src: '/images/catalog/tool-pneumatic-aqd19.webp',
+    title: 'AQD-19 High-Tension Pneumatic Friction Tool for PET Strapping',
+    caption: 'Portable pneumatic friction-welder strapping tool tested for heavy pallet and brick bundling with zero metal clips needed.',
+    category: 'Quality',
+    client: 'Heavy Duty Dispatch Tooling',
+  },
+  {
+    id: 'g-pallet-wrapper-ntype',
+    src: '/images/catalog/pallet-stretch-wrapper-ntype.webp',
+    title: 'M/N Type Low-Profile Drive-In Pallet Wrapper',
+    caption: 'Horseshoe turntable pallet stretch wrapping machine allowing operators to roll hand pallet trucks directly into turntable center.',
+    category: 'Pallet Wrapping',
+    client: 'Warehouse Logistics Dispatch',
   },
 ];
 
@@ -264,6 +296,71 @@ export default function Gallery() {
           </div>
         </div>
       )}
+
+      {/* Factory Video Demonstrations */}
+      <section className="section video-showcase-section" style={{ background: 'var(--color-surface, #1e293b)', padding: '4rem 0' }}>
+        <div className="container">
+          <div className="section-header" style={{ marginBottom: '2.5rem' }}>
+            <span className="section-kicker" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--accent-orange, #f59e0b)' }}>
+              <Play size={14} /> LIVE FACTORY DEMONSTRATIONS
+            </span>
+            <h2 className="section-title" style={{ fontSize: '2rem', marginTop: '0.5rem' }}>
+              Operational Packaging Machine Action
+            </h2>
+            <p className="section-lead" style={{ maxWidth: '650px', color: 'var(--color-text-muted, #94a3b8)' }}>
+              Watch actual testing and dispatch demonstrations of our custom pressing and compression strapping systems running at full power.
+            </p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
+            {/* Video 1 */}
+            <div style={{ background: 'rgba(15, 23, 42, 0.75)', borderRadius: '12px', border: '1px solid rgba(255, 255, 255, 0.08)', overflow: 'hidden' }}>
+              <video
+                controls
+                preload="metadata"
+                style={{ width: '100%', height: '240px', objectFit: 'cover', background: '#000', display: 'block' }}
+                src="/videos/horizontal-pressing-strapping-demo.mp4"
+              >
+                Your browser does not support the video tag.
+              </video>
+              <div style={{ padding: '1.25rem' }}>
+                <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--accent-orange, #f59e0b)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  Strapping Automation
+                </span>
+                <h3 style={{ fontSize: '1.15rem', margin: '0.35rem 0 0.5rem', color: '#fff' }}>
+                  Horizontal Compression &amp; Box Strapping Cycle
+                </h3>
+                <p style={{ fontSize: '0.875rem', color: '#94a3b8', lineHeight: 1.5, margin: 0 }}>
+                  High-torque lateral compression plate clamping and rapid friction-heat strapping for stable bundles.
+                </p>
+              </div>
+            </div>
+
+            {/* Video 2 */}
+            <div style={{ background: 'rgba(15, 23, 42, 0.75)', borderRadius: '12px', border: '1px solid rgba(255, 255, 255, 0.08)', overflow: 'hidden' }}>
+              <video
+                controls
+                preload="metadata"
+                style={{ width: '100%', height: '240px', objectFit: 'cover', background: '#000', display: 'block' }}
+                src="/videos/bundle-compression-strapping-demo.mp4"
+              >
+                Your browser does not support the video tag.
+              </video>
+              <div style={{ padding: '1.25rem' }}>
+                <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--accent-orange, #f59e0b)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  Textile &amp; Carton Compression
+                </span>
+                <h3 style={{ fontSize: '1.15rem', margin: '0.35rem 0 0.5rem', color: '#fff' }}>
+                  Vertical Pneumatic Compression Strapping
+                </h3>
+                <p style={{ fontSize: '0.875rem', color: '#94a3b8', lineHeight: 1.5, margin: 0 }}>
+                  Overhead pneumatic ram compressing soft textile and corrugated bundles prior to high-tension strap sealing.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Bottom CTA Banner */}
       <section className="page-cta-strip">

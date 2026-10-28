@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 import { ArrowRight, Menu, X, Phone, Mail, MessageCircle } from 'lucide-react';
 
 const navLinks = [
   { to: '/', label: 'Home' },
-  { to: '/products', label: 'Products' },
+  { to: '/#products', label: 'Products' },
   { to: '/solutions', label: 'Solutions' },
   { to: '/about', label: 'About Us' },
   { to: '/industries', label: 'Industries' },
@@ -15,7 +15,25 @@ const navLinks = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
   const close = () => setOpen(false);
+
+  const handleNavClick = (e: React.MouseEvent, to: string) => {
+    close();
+    if (to.includes('#')) {
+      const [, hash] = to.split('#');
+      if (location.pathname === '/') {
+        e.preventDefault();
+        const el = document.getElementById(hash);
+        if (el) {
+          const navOffset = 76;
+          const targetY = el.getBoundingClientRect().top + window.scrollY - navOffset;
+          window.scrollTo({ top: targetY, behavior: 'smooth' });
+          window.history.replaceState(null, '', `#${hash}`);
+        }
+      }
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,7 +74,7 @@ export default function Navbar() {
           <div className="topbar-left-tag">
             <span className="live-status-pulse small-pulse" />
             <span className="topbar-tagline">
-              All Type Customize Packaging Solutions · Ahmedabad, Gujarat
+              All Types of Customize Packaging Solutions · Ahmedabad, Gujarat
             </span>
           </div>
           <div className="topbar-links">
@@ -89,7 +107,7 @@ export default function Navbar() {
             </div>
             <div className="brand-text-block">
               <strong className="brand-name">HONEY PACKAGING</strong>
-              <small className="brand-sub">CUSTOMIZE PACKAGING SOLUTIONS</small>
+              <small className="brand-sub">ALL TYPES OF CUSTOMIZE PACKAGING SOLUTIONS</small>
             </div>
           </Link>
 
@@ -100,8 +118,9 @@ export default function Navbar() {
                 key={to}
                 to={to}
                 end={to === '/'}
+                onClick={(e) => handleNavClick(e, to)}
                 className={({ isActive }) =>
-                  `nav-item-link ${isActive ? 'nav-item-active' : ''}`
+                  `nav-item-link ${isActive && to === '/' ? 'nav-item-active' : ''}`
                 }
               >
                 {label}
@@ -136,10 +155,10 @@ export default function Navbar() {
                 <NavLink
                   key={to}
                   to={to}
-                  onClick={close}
+                  onClick={(e) => handleNavClick(e, to)}
                   end={to === '/'}
                   className={({ isActive }) =>
-                    `mobile-nav-link ${isActive ? 'mobile-active' : ''}`
+                    `mobile-nav-link ${isActive && to === '/' ? 'mobile-active' : ''}`
                   }
                 >
                   <span>{label}</span>

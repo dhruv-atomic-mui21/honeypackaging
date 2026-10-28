@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { MessageCircle, Loader2 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -8,7 +8,6 @@ import CookieConsent from '@/components/CookieConsent';
 import Home from '@/pages/Home';
 
 // Lazy loaded secondary routes for optimal bundle splitting
-const Products = lazy(() => import('@/pages/Products'));
 const Solutions = lazy(() => import('@/pages/Solutions'));
 const About = lazy(() => import('@/pages/About'));
 const Industries = lazy(() => import('@/pages/Industries'));
@@ -19,11 +18,28 @@ const Terms = lazy(() => import('@/pages/Terms'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
 
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    if (hash) {
+      const id = hash.replace('#', '').split('?')[0];
+      const el = document.getElementById(id);
+      if (el) {
+        requestAnimationFrame(() => {
+          const navOffset = 76;
+          const targetY = el.getBoundingClientRect().top + window.scrollY - navOffset;
+          window.scrollTo({ top: targetY, behavior: 'smooth' });
+        });
+        return;
+      }
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [pathname, hash]);
   return null;
+}
+
+function ProductsRoute() {
+  const location = useLocation();
+  return <Navigate to={`/#products${location.search}`} replace />;
 }
 
 function PageLoader() {
@@ -44,7 +60,7 @@ export default function App() {
       <Suspense fallback={<PageLoader />}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/products" element={<Products />} />
+          <Route path="/products" element={<ProductsRoute />} />
           <Route path="/solutions" element={<Solutions />} />
           <Route path="/about" element={<About />} />
           <Route path="/industries" element={<Industries />} />

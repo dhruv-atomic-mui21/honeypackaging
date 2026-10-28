@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { useState, useEffect, useMemo } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import SEO from '@/components/SEO';
 import {
   ArrowRight,
@@ -15,6 +16,10 @@ import {
   Activity,
   Award,
   ChevronRight,
+  Search,
+  X,
+  Cpu,
+  SlidersHorizontal,
 } from 'lucide-react';
 import { categories } from '@/data/products';
 import StickyMachineShowcase from '@/components/StickyMachineShowcase';
@@ -55,10 +60,45 @@ const flowStages = [
 ];
 
 export default function Home() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const catParam = searchParams.get('category');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const [activeCat, setActiveCat] = useState(() => {
+    return categories.some((c) => c.id === catParam) ? (catParam as string) : categories[0].id;
+  });
+
+  useEffect(() => {
+    if (catParam && categories.some((c) => c.id === catParam)) {
+      setActiveCat(catParam);
+    }
+  }, [catParam]);
+
+  const handleTabClick = (id: string) => {
+    setActiveCat(id);
+    setSearchParams({ category: id }, { replace: true });
+    setSearchQuery('');
+  };
+
+  const currentCategory = categories.find((c) => c.id === activeCat) || categories[0];
+
+  const filteredProducts = useMemo(() => {
+    if (!searchQuery.trim()) {
+      return currentCategory.products;
+    }
+    const q = searchQuery.toLowerCase().trim();
+    return currentCategory.products.filter(
+      (p) =>
+        p.name.toLowerCase().includes(q) ||
+        p.shortDesc.toLowerCase().includes(q) ||
+        p.specs.some((s) => s.toLowerCase().includes(q))
+    );
+  }, [currentCategory, searchQuery]);
+
   return (
     <main id="home" className="home-main">
       <SEO
-        title="Honey Packaging | All Type Customize Packaging Solutions | Ahmedabad"
+        title="Honey Packaging | All Types of Customize Packaging Solutions | Ahmedabad"
         description="Semi & automatic box strapping machines, pallet stretch wrappers, carton sealers, shrink tunnels & customize conveyors in Ahmedabad, Gujarat. Est. 2007."
         path="/"
       />
@@ -74,7 +114,7 @@ export default function Home() {
             <div className="hero-telemetry-tag">
               <span className="live-status-pulse" />
               <span className="telemetry-text">
-                AHMEDABAD · KATHWADA WORKS · EST. 2007
+                AHMEDABAD · ALL TYPES OF CUSTOMIZE PACKAGING SOLUTIONS · EST. 2007
               </span>
             </div>
 
@@ -84,7 +124,7 @@ export default function Home() {
             </h1>
 
             <p className="hero-lead-text">
-              All type customize packaging solutions for manufacturers and warehouses that keep India moving. Built tough for rigorous shifts, supported locally by direct engineers.
+              All types of customize packaging solutions for manufacturers and warehouses that keep India moving. Built tough for rigorous shifts, supported locally by direct engineers.
             </p>
 
             <div className="hero-cta-group">
@@ -217,12 +257,12 @@ export default function Home() {
       {/* STICKY SPLIT SCROLL MACHINERY SHOWCASE SECTION */}
       <StickyMachineShowcase />
 
-      {/* Catalogue Categories Grid Section */}
+      {/* Merged Product Machinery & Consumables Section */}
       <section className="section industrial-catalogue-section" id="products">
         <div className="container">
           <div className="section-heading-industrial split-heading">
             <div>
-              <span className="tech-mono-badge">FULL EQUIPMENT MATRIX</span>
+              <span className="tech-mono-badge">FULL EQUIPMENT & CONSUMABLES MATRIX</span>
               <h2 className="section-title-large">
                 The Machine Room:<br />
                 <span className="text-gold-gradient">Engineered to Your Output.</span>
@@ -230,50 +270,187 @@ export default function Home() {
             </div>
             <div className="heading-side-column">
               <p>
-                From entry-level semi-automatic strapping to fully automated in-line pallet wrapping lines, we engineer machines to your carton size, speed, and budget.
+                From entry-level semi-automatic wrappers and strapping tables to fully automated in-line conveyors, shrink tunnels, and prime/recycled strapping rolls—tailored directly to your plant output.
               </p>
-              <Link className="tech-arrow-link" to="/products">
-                <span>View Complete Catalogue</span>
+              <a
+                href="https://wa.me/919909922785?text=Hello%20Honey%20Packaging%2C%20I%20want%20to%20consult%20an%20engineer%20for%20machinery."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="tech-arrow-link"
+              >
+                <span>Consult Factory Engineer</span>
                 <ArrowRight size={16} />
-              </Link>
+              </a>
             </div>
           </div>
 
-          <div className="catalogue-category-grid">
-            {categories.map(({ id, name, image, alt, products, icon: Icon, tone }) => (
-              <Link className={`catalogue-card tone-${tone}`} to={`/products?category=${id}`} key={id}>
-                <div className="card-top-row">
-                  <div className="category-icon-wrapper">
-                    <Icon size={22} />
-                  </div>
-                  <span className="category-model-count">
-                    {products.length} {products.length > 1 ? 'Models' : 'Model'}
-                  </span>
-                </div>
+          {/* Category Tabs & Quick Search Toolbar */}
+          <div className="industrial-catalogue-toolbar">
+            <div className="category-pill-tabs" role="tablist" aria-label="Product Machinery Divisions">
+              {categories.map((c) => (
+                <button
+                  key={c.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={activeCat === c.id}
+                  className={`category-pill-tab ${activeCat === c.id ? 'active-pill' : ''}`}
+                  onClick={() => handleTabClick(c.id)}
+                >
+                  <c.icon size={16} />
+                  <span>{c.name}</span>
+                  <span className="pill-count-bubble">{c.products.length}</span>
+                </button>
+              ))}
+            </div>
 
-                <div className="category-photo-wrapper">
-                  <img
-                    src={image}
-                    alt={alt}
-                    width="240"
-                    height="170"
-                    loading="lazy"
-                    className="category-preview-img"
-                  />
-                </div>
-
-                <div className="category-details">
-                  <h3 className="category-title">{name}</h3>
-                  <p className="category-desc-preview">{products.length} packaging solutions</p>
-                </div>
-
-                <div className="category-card-footer">
-                  <span className="footer-link-text">Explore Specifications</span>
-                  <ArrowRight size={15} />
-                </div>
-              </Link>
-            ))}
+            <div className="industrial-search-box">
+              <Search size={16} className="search-icon-adornment" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder={`Search ${currentCategory.name}...`}
+                className="industrial-search-input"
+                aria-label={`Search in ${currentCategory.name}`}
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery('')}
+                  className="search-clear-btn"
+                  aria-label="Clear search query"
+                >
+                  <X size={14} />
+                </button>
+              )}
+            </div>
           </div>
+
+          {/* Active Category Header Banner */}
+          <div className="active-category-hero-card">
+            <div className="cat-hero-left">
+              <div className={`category-large-avatar tone-${currentCategory.tone}`}>
+                <currentCategory.icon size={30} />
+              </div>
+              <div className="cat-hero-text">
+                <div className="cat-meta-row">
+                  <span className="cat-model-count-tag">
+                    {currentCategory.products.length} {currentCategory.products.length > 1 ? 'MODELS AVAILABLE' : 'MODEL AVAILABLE'}
+                  </span>
+                  <span className="cat-location-tag">KATHWADA WORKS · AHMEDABAD</span>
+                </div>
+                <h2 className="cat-hero-title">{currentCategory.name}</h2>
+                <p className="cat-hero-tagline">{currentCategory.tagline}</p>
+                <p className="cat-hero-description">{currentCategory.description}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Products Grid */}
+          {filteredProducts.length > 0 ? (
+            <div className="industrial-products-grid">
+              {filteredProducts.map((p, index) => {
+                const isSemi = p.name.toLowerCase().includes('semi');
+                const isConsumable = currentCategory.id === 'strapping-roll' || currentCategory.id === 'consumables';
+                const statusTag = isConsumable
+                  ? 'FACTORY STOCK'
+                  : isSemi
+                  ? 'SEMI-AUTOMATIC'
+                  : 'AUTOMATIC';
+
+                return (
+                  <article className="industrial-product-card" key={p.id}>
+                    {/* Card Header Tag */}
+                    <div className="product-card-top-tag">
+                      <span className="product-index-code">MODEL #{String(index + 1).padStart(2, '0')}</span>
+                      <span className="product-status-tag">{statusTag}</span>
+                    </div>
+
+                    {/* Machine Photo Viewfinder */}
+                    <div className="product-viewfinder-frame">
+                      <div className="frame-corner corner-tl">+</div>
+                      <div className="frame-corner corner-tr">+</div>
+                      <div className="frame-corner corner-bl">+</div>
+                      <div className="frame-corner corner-br">+</div>
+
+                      <img
+                        src={p.image}
+                        alt={p.alt}
+                        width="400"
+                        height="300"
+                        loading="lazy"
+                        className="product-card-photo"
+                      />
+                    </div>
+
+                    {/* Card Content Body */}
+                    <div className="product-card-content">
+                      <h3 className="product-card-name">{p.name}</h3>
+                      <p className="product-card-brief">{p.shortDesc}</p>
+
+                      {/* Technical Specifications Matrix */}
+                      {p.specs.length > 0 && (
+                        <div className="product-card-specs-box">
+                          <div className="specs-box-title">
+                            <Cpu size={13} className="text-gold" />
+                            <span>SPECIFICATIONS</span>
+                          </div>
+                          <ul className="product-specs-list">
+                            {p.specs.map((s) => (
+                              <li key={s} className="spec-list-item">
+                                <Check size={13} className="spec-check text-gold" />
+                                <span>{s}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {/* Dual Action CTA Buttons */}
+                      <div className="product-card-action-bar">
+                        <Link
+                          to={`/contact?need=${encodeURIComponent(p.name)}`}
+                          className="button button-gold card-rfq-btn"
+                        >
+                          <span>Request Quote</span>
+                          <ArrowRight size={14} />
+                        </Link>
+                        <a
+                          href={`https://wa.me/919909922785?text=${encodeURIComponent(
+                            `Hello Honey Packaging, I want to inquire about the ${p.name}.`
+                          )}`}
+                          className="button button-ghost-light card-wa-btn"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`Inquire about ${p.name} on WhatsApp`}
+                        >
+                          <MessageCircle size={15} />
+                          <span>WhatsApp</span>
+                        </a>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="products-empty-state">
+              <div className="empty-state-card">
+                <SlidersHorizontal size={36} className="empty-icon text-gold" />
+                <h3>No Machinery Models Found</h3>
+                <p>
+                  No machinery models in &quot;{currentCategory.name}&quot; matched your search for &quot;{searchQuery}&quot;.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery('')}
+                  className="button button-gold mt-4"
+                >
+                  Reset Search Filter
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -352,6 +529,95 @@ export default function Home() {
                 <span className="metric-label">Gujarat Supported</span>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Industries Served Section */}
+      <section className="section industrial-sectors-section" id="industries">
+        <div className="container">
+          <div className="section-heading-industrial split-heading">
+            <div>
+              <span className="tech-mono-badge">SECTOR EXPERTISE // GUJARAT MANUFACTURING</span>
+              <h2 className="section-title-large">
+                Built for High-Stakes<br />
+                <span className="text-gold-gradient">Production Floors.</span>
+              </h2>
+            </div>
+            <div className="heading-side-column">
+              <p>
+                From ceramic tile cartons at AGL to Shubhalakshmi polyester yarns, edible oils, pharmaceuticals, and agro bales — packaging machinery matched to your exact load profile and shifts.
+              </p>
+              <Link to="/industries" className="tech-arrow-link">
+                <span>Explore All 6 Industry Solutions</span>
+                <ArrowRight size={16} />
+              </Link>
+            </div>
+          </div>
+
+          <div className="industrial-sectors-grid">
+            {[
+              {
+                num: '01',
+                name: 'Ceramics & Heavy Tiles',
+                desc: 'Heavy-duty automatic box strapping and M-Type pallet wrappers engineered for high-density carton packaging with zero edge damage.',
+                machines: ['Automatic Box Strapping Machine', 'M-Type Pallet Stretch Wrapper', 'AQD-19 Pneumatic Tool'],
+                client: 'Deployed at AGL Tiles & Morbi Ceramic Corridors',
+              },
+              {
+                num: '02',
+                name: 'Textiles, Yarns & Cotton Bales',
+                desc: 'Vertical and horizontal compression strapping systems designed for soft yarn boxes, compressed cotton bales, and fabric rolls.',
+                machines: ['Horizontal Compression Strapping', 'Low Table with Pressing', 'High-Tensile PP Straps'],
+                client: 'Trusted by Shubhalakshmi Polyesters Ltd',
+              },
+              {
+                num: '03',
+                name: 'Food, Edible Oils & FMCG',
+                desc: 'Synchronous top & bottom carton sealers and continuous heat shrink tunnels for uniform tamper-evident packaging lines.',
+                machines: ['Top & Bottom Carton Sealer', 'Continuous Shrink Tunnel', 'Free Roller Conveyor Bed'],
+                client: 'Gujarat Food Processing & Edible Oil Units',
+              },
+              {
+                num: '04',
+                name: 'Pharmaceuticals & Cleanrooms',
+                desc: 'Tamper-evident carton sealing, POF shrink wrapping, and clean stainless roller conveyors for hygienic healthcare packaging.',
+                machines: ['Semi-Automatic L-Sealer', 'Auto Random Carton Sealer', 'Stainless Gravity Conveyor'],
+                client: 'Ahmedabad & Vadodara Pharma Clusters',
+              },
+            ].map(({ num, name, desc, machines, client }) => (
+              <article className="industrial-sector-card" key={num}>
+                <div className="sector-card-header">
+                  <span className="sector-num-badge">SECTOR {num}</span>
+                  <Factory size={18} className="text-gold" />
+                </div>
+                <h3 className="sector-name">{name}</h3>
+                <p className="sector-desc">{desc}</p>
+                <div className="sector-machinery-box">
+                  <span className="machinery-box-title">
+                    <Cpu size={12} className="text-gold" />
+                    RECOMMENDED SETUP
+                  </span>
+                  <div className="machinery-tags-wrap">
+                    {machines.map((m) => (
+                      <span key={m} className="machinery-pill-tag">
+                        {m}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className="sector-card-footer">
+                  <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>{client}</span>
+                  <Link
+                    to={`/contact?need=${encodeURIComponent(`Machinery for ${name}`)}`}
+                    className="button button-gold sector-quote-btn"
+                  >
+                    <span>Get Quote</span>
+                    <ArrowRight size={13} />
+                  </Link>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>

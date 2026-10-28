@@ -20,11 +20,11 @@ export default function Footer() {
             </div>
             <div className="brand-text-block">
               <strong className="brand-name">HONEY PACKAGING</strong>
-              <small className="brand-sub">CUSTOMIZE PACKAGING SOLUTIONS</small>
+              <small className="brand-sub">ALL TYPES OF CUSTOMIZE PACKAGING SOLUTIONS</small>
             </div>
           </Link>
           <p className="footer-industrial-desc">
-            All Type Customize Packaging Solutions for Indian manufacturing industries. Built tough for rigorous factory shifts. Est. 2007 in Kathwada, Ahmedabad, Gujarat.
+            All Types of Customize Packaging Solutions for Indian manufacturing industries. Built tough for rigorous factory shifts. Est. 2007 in Kathwada, Ahmedabad, Gujarat.
           </p>
 
           <div className="footer-quick-contacts">
@@ -62,7 +62,7 @@ export default function Footer() {
           <span className="footer-column-heading">Navigation</span>
           <div className="footer-nav-list">
             <Link to="/">Home</Link>
-            <Link to="/products">Packaging Machines</Link>
+            <Link to="/#products">Packaging Machines</Link>
             <Link to="/solutions">Packing Solutions</Link>
             <Link to="/about">About Us &amp; Founder</Link>
             <Link to="/industries">Industries Served</Link>

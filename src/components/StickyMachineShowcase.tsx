@@ -42,7 +42,7 @@ const showcaseItems: ShowcaseItem[] = [
     tagline: 'High-speed friction heat welding for industrial carton stabilization',
     description:
       'Engineered for rigorous daily factory shifts across Gujarat. Features heavy-gauge steel chassis, high-torque direct feed motors, and instant thermal friction welding. Available in standalone foot-pedal tables, high-speed arch models (up to 60 straps/min), and fully motorized conveyor online systems.',
-    image: '/images/products/auto-strapping.webp',
+    image: '/images/catalog/strapping-arch-type-heavy.webp',
     alt: 'High-speed automatic box strapping machine with overhead arch',
     badge: 'HEAVY INDUSTRIAL DUTY',
     categorySlug: 'strapping',
@@ -64,31 +64,31 @@ const showcaseItems: ShowcaseItem[] = [
   },
   {
     id: 'pallet-wrapping',
-    category: 'Pallet Stretch Wrapping',
+    category: 'Pallet',
     code: 'SYS-PLT-02',
-    title: 'Turntable & Ring Pallet Stretch Wrappers',
+    title: 'M-Type & Turntable Pallet Stretch Wrappers',
     tagline: 'Moisture-tight stability with up to 250% power pre-stretch film yield',
     description:
-      'Turnkey pallet wrapping machinery preventing transit damage, moisture ingress, and load collapse for export and domestic transit. Equipped with automatic optical photo-eyes for pallet height detection, soft start/stop frequency inverters, and heavy-duty 2,000 kg turntable capacities.',
-    image: '/images/products/fully-auto-pallet.webp',
-    alt: 'Fully automatic pallet stretch wrapping machine with heavy turntable and vertical mast',
+      'Turnkey pallet wrapping machinery preventing transit damage, moisture ingress, and load collapse for export and domestic transit. Features M-Type drive-in cutouts for hand pallet trucks without ramps, automatic optical photo-eyes for pallet height detection, and heavy-duty 2,000 kg turntable capacities.',
+    image: '/images/products/pallet-wrapper-ntype.webp',
+    alt: 'M-Type Pallet Stretch Wrapper with hand pallet truck driveway cutout turntable',
     badge: 'EXPORT CONTAINER CERTIFIED',
-    categorySlug: 'pallet-wrapping',
+    categorySlug: 'pallet',
     specs: [
+      { label: 'Turntable Design', value: 'M-Type Cutout & Standard Turntable' },
       { label: 'Max Pallet Load', value: 'Up to 2,000 kg' },
-      { label: 'Turntable Dia', value: '1,650 mm – 1,800 mm' },
       { label: 'Pre-Stretch Ratio', value: 'Up to 250% – 300%' },
       { label: 'Turntable Speed', value: '0 – 12 RPM (VFD variable)' },
       { label: 'Mast Height', value: 'Standard 2,400 mm (Custom up to 3,000 mm)' },
       { label: 'Film Roll Size', value: 'Width 500 mm, Dia 250 mm' },
     ],
     highlights: [
+      'M-Type turntable allows hand-pallet trucks to roll right in without a ramp',
       'Power pre-stretch film carriage slashes consumable film usage by 50%',
       'Precision top and bottom reinforcement wrap counters (1–9 cycles)',
       'Infrared safety photo-eye auto-detects variable pallet heights',
-      'Heavy-duty chain drive with smooth ramp-up to protect fragile loads',
     ],
-    inquiryName: 'Fully Auto Pallet Stretch Wrapping Machine',
+    inquiryName: 'Pallet Wrapping Machine M-Type',
   },
   {
     id: 'carton-sealing',
@@ -101,7 +101,7 @@ const showcaseItems: ShowcaseItem[] = [
     image: '/images/products/auto-random-carton.webp',
     alt: 'Automatic random carton sealer with pneumatic flap closing mechanism',
     badge: 'CONTINUOUS LINE PACKAGING',
-    categorySlug: 'carton-sealing',
+    categorySlug: 'sealer',
     specs: [
       { label: 'Sealing Speed', value: 'Up to 25 meters/minute' },
       { label: 'Tape Width', value: '48 mm, 60 mm, 72 mm BOPP' },
@@ -207,6 +207,8 @@ export default function StickyMachineShowcase() {
           end: () => `+=${getScrollAmount()}`,
           pin: true,
           scrub: 0.6,
+          anticipatePin: 1,
+          fastScrollEnd: true,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             const prog = self.progress;
@@ -446,7 +448,7 @@ export default function StickyMachineShowcase() {
                   </a>
 
                   <Link
-                    to={`/products?category=${item.categorySlug}`}
+                    to={`/?category=${item.categorySlug}#products`}
                     className="button button-ghost-light hscroll-cta-btn"
                   >
                     <span>View Technical Specs</span>
